@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            String message = String.format("Hi, I'm %s, %d years old, studying %s.", name, age, program);
-            tvOutput.setText(message);
+            String Showmessege = String.format("Hi, I'm %s, %d years old, studying %s.", name, age, program);
+            tvOutput.setText(Showmessege);
         });
     }
 }
