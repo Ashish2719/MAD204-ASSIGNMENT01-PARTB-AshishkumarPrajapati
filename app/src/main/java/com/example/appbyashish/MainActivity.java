@@ -11,6 +11,7 @@
 package com.example.appbyashish; // THIS IS MY PROJECT PPACKAGE
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -33,31 +34,33 @@ public class MainActivity extends AppCompatActivity {
         tvOutput = findViewById(R.id.tvOutput);
         btnIntroduce = findViewById(R.id.btnIntroduce);
 
-        btnIntroduce.setOnClickListener(v -> {
-            String name = etName.getText().toString().trim();
-            String ageStr = etAge.getText().toString().trim();
-            String program = etProgram.getText().toString().trim();
+        btnIntroduce.setOnClickListener(this::onClick);
+    }
 
-            if (name.isEmpty() || ageStr.isEmpty() || program.isEmpty()) {
-                tvOutput.setText("Please fill in all fields.");
+    private void onClick(View v) {
+        String name = etName.getText().toString().trim();
+        String ageStr = etAge.getText().toString().trim();
+        String program = etProgram.getText().toString().trim();
+
+        if (name.isEmpty() || ageStr.isEmpty() || program.isEmpty()) {
+            tvOutput.setText("Please fill in all fields.");
+            return;
+        }
+
+        int age;
+        try {
+            age = Integer.parseInt(ageStr);
+            if (age <= 0) {
+                tvOutput.setText("Age must be greater than zero.");
                 return;
             }
+        } catch (NumberFormatException ex) {
+            tvOutput.setText("Please enter a valid numeric age.");
+            return;
+        }
 
-            int age;
-            try {
-                age = Integer.parseInt(ageStr);
-                if (age <= 0) {
-                    tvOutput.setText("Age must be greater than zero.");
-                    return;
-                }
-            } catch (NumberFormatException ex) {
-                tvOutput.setText("Please enter a valid numeric age.");
-                return;
-            }
-
-            String Showmessege = String.format("Hi, I'm %s, %d years old, studying %s.", name, age, program);
-            tvOutput.setText(Showmessege);
-        });
+        String Showmessege = String.format("Hi, I'm %s, %d years old, studying %s.", name, age, program);
+        tvOutput.setText(Showmessege);
     }
 }
 
